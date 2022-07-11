@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
-
+  before_action :require_login, only: [:edit, :destroy]
   # GET /posts
+  
   def index
     @posts = Post.all
   end
@@ -15,7 +16,9 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1/edit
-  def edit; end
+  def edit
+    @post = Post.find(params[:id])
+  end
 
   # POST /posts
   def create
